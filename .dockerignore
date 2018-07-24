@@ -1,0 +1,5 @@
+data/
+sample/
+docker-compose.yml
+README.md
+.gitignore

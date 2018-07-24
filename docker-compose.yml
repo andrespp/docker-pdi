@@ -1,0 +1,35 @@
+##
+# Andre Pereira
+# 2017-12-31
+#
+# Standalone compose for Jasper Server
+
+version: '3.1'
+
+services:
+  jaspersrv:
+    image: andrespp/jaspersrv
+    #command: ["seed"]
+    restart: always
+    volumes:
+    - ./data/jasper-data:/usr/local/tomcat/webapps
+    ports:
+      - "80:8080"
+    depends_on:
+      - jaspersrv-db
+    environment:
+      DB_TYPE: postgresql
+      DB_HOST: jaspersrv-db
+      DB_NAME: jasperdb
+      DB_USER: jasperdb_user
+      DB_PASSWORD: my-secret-password
+
+  jaspersrv-db:
+    image: postgres:10
+    restart: always
+    volumes:
+     - ./data/pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: jasperdb
+      POSTGRES_USER: jasperdb_user
+      POSTGRES_PASSWORD: my-secret-password
