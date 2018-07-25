@@ -4,13 +4,13 @@
 set -e
 
 run_pan() {
-	echo ./pan.sh -file $2
-	pan.sh -file /jobs/$2
+	echo ./pan.sh -file $@
+	pan.sh -file /jobs/$@
 }
 
 run_kitchen() {
-	echo ./kitchen.sh -file $2
-	kitchen.sh -file /jobs/$2
+	echo ./kitchen.sh -file $@
+	kitchen.sh -file /jobs/$@
 }
 
 print_usage() {
@@ -32,9 +32,11 @@ case "$1" in
         print_usage 
         ;;
     runt)
+	shift 1
         run_pan "$@"
         ;;
     runj)
+	shift 1
         run_kitchen "$@"
         ;;
     *)
