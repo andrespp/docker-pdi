@@ -18,7 +18,10 @@ WORKDIR $KETTLE_HOME
 
 RUN wget https://downloads.sourceforge.net/project/jtds/jtds/1.3.1/jtds-1.3.1-dist.zip \
 	&& unzip jtds-1.3.1-dist.zip -d lib/ \
-	&& rm jtds-1.3.1-dist.zip
+	&& rm jtds-1.3.1-dist.zip \
+	&& wget https://github.com/FirebirdSQL/jaybird/releases/download/v3.0.4/Jaybird-3.0.4-JDK_1.8.zip \
+	&& unzip Jaybird-3.0.4-JDK_1.8.zip -d lib \
+	&& rm -rf lib/docs/ Jaybird-3.0.4-JDK_1.8.zip
 
 # First time run
 RUN pan.sh -file ./plugins/platform-utils-plugin/samples/showPlatformVersion.ktr \
