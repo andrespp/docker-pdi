@@ -3,7 +3,7 @@ Docker Pentaho Data Integration
 
 # Introduction
 
-DockerFile for [Pentaho Data Integration](https://sourceforge.net/projects/jasperserver/) (a.k.a kettel / PDI) 
+DockerFile for [Pentaho Data Integration](https://sourceforge.net/projects/pentaho/) (a.k.a kettel / PDI)
 
 This image is intendend to allow execution os PDI transformations and jobs throught command line. Neihter the UI (`Spoon`)  or the PDI server (`Carter`) are available on this image.
 
