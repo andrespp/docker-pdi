@@ -3,12 +3,20 @@
 # Sets script to fail if any command fails.
 set -e
 
+custom_properties() {
+	if [ -f /jobs/kettle.properties ] ; then
+		cp /jobs/kettle.properties $KETTLE_HOME
+	fi
+}
+
 run_pan() {
+	custom_properties
 	echo ./pan.sh -file $@
 	pan.sh -file /jobs/$@
 }
 
 run_kitchen() {
+	custom_properties
 	echo ./kitchen.sh -file $@
 	kitchen.sh -file /jobs/$@
 }
@@ -29,7 +37,7 @@ Options:
 
 case "$1" in
     help)
-        print_usage 
+        print_usage
         ;;
     runt)
 	shift 1
