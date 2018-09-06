@@ -30,10 +30,19 @@ Options:
 $ docker container run --rm -v $(pwd):/jobs andrespp/pdi runt sample/dummy.ktr
 ```
 
-## Running Jobs 
+## Running Jobs
 
 ```
-$ docker container run --rm -v $(pwd):/jobs andrespp/pdi runj  sample/dummy.ktr
+$ docker container run --rm -v $(pwd):/jobs andrespp/pdi runj  sample/dummy.kjb
+```
+
+## Custom `kettle.properties`
+
+In order to use a custom `kettle.properties`, you need to leave the file available in `/jobs/kettle.properties`.
+
+```bash
+$ # Custom properties in $(pwd)/kettle.properties
+$ docker container run --rm -v $(pwd):/jobs andrespp/pdi runj  sample/dummy.kjb
 ```
 
 # Environment variables
