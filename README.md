@@ -5,7 +5,7 @@ Docker Pentaho Data Integration
 
 DockerFile for [Pentaho Data Integration](https://sourceforge.net/projects/pentaho/) (a.k.a kettel / PDI)
 
-This image is intendend to allow execution os PDI transformations and jobs throught command line. Neihter the UI (`Spoon`)  or the PDI server (`Carter`) are available on this image.
+This image is intendend to allow execution os PDI transformations and jobs throught command line and run PDI's UI (`Spoon`). PDI server (`Carter`) is available on this image.
 
 # Quick start
 
@@ -21,7 +21,9 @@ Pentaho Data Integration (PDI)
 Options:
   runj filename		Run job file
   runt filename		Run transformation file
-  help		        Print this help
+  spoon			    Run spoon (GUI)
+  help		         Print this help
+
 ```
 
 ## Running Transformations
@@ -35,6 +37,35 @@ $ docker container run --rm -v $(pwd):/jobs andrespp/pdi runt sample/dummy.ktr
 ```
 $ docker container run --rm -v $(pwd):/jobs andrespp/pdi runj  sample/dummy.kjb
 ```
+
+## Running Spoon (UI)
+
+### Using `docker run`
+
+```
+$ docker run -it --rm -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro \
+        -v $(pwd):/root/data \
+        -e XAUTH=$(xauth list|grep `uname -n` | cut -d ' ' -f5) -e "DISPLAY" \
+        --name spoon \
+        andrespp/pdi spoon
+```
+
+### Using startup script (Installing)
+
+In order to run the container as if the application was installed locally, download the `spoon` script to a directory in you $PATH, for example:
+
+```bash
+$ sudo curl -fsSL https://raw.githubusercontent.com/andrespp/docker-pdi/master/spoon \
+       -o /usr/local/bin/spoon
+$ sudo chmod +x /usr/local/bin/spoon
+```
+
+Then you'll be able to run JupyterLab in the current directory simply by calling `jlab`:
+
+```bash
+$ spoon
+```
+
 
 ## Custom `kettle.properties`
 

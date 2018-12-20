@@ -3,6 +3,12 @@
 # Sets script to fail if any command fails.
 set -e
 
+set_xauth() {
+	echo xauth add $DISPLAY . $XAUTH
+	touch /.Xauthority
+	xauth add $DISPLAY . $XAUTH
+}
+
 custom_properties() {
 	if [ -f /jobs/kettle.properties ] ; then
 		cp /jobs/kettle.properties $KETTLE_HOME
@@ -31,6 +37,7 @@ Pentaho Data Integration (PDI)
 Options:
   runj filename		Run job file
   runt filename		Run transformation file
+  spoon			Run spoon (GUI)
   help		        Print this help
 "
 }
@@ -46,6 +53,10 @@ case "$1" in
     runj)
 	shift 1
         run_kitchen "$@"
+        ;;
+    spoon)
+	set_xauth
+	/data-integration/spoon.sh
         ;;
     *)
         exec "$@"
