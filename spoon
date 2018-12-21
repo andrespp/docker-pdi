@@ -19,7 +19,7 @@ CONTAINER_ID=$(is_running)
 if [ -z $CONTAINER_ID ] ; then
 	# Container not running, start it
 	docker run -it --rm -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro \
-	-v $(pwd):/root/data \
+	-v $(pwd):/jobs \
 	-e XAUTH=$(xauth list|grep `uname -n` | cut -d ' ' -f5) -e "DISPLAY" \
 	--name $CONTAINER_NAME \
        	$IMAGE spoon

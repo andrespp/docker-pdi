@@ -27,6 +27,13 @@ run_kitchen() {
 	kitchen.sh -file /jobs/$@
 }
 
+run_spoon() {
+	custom_properties
+	set_xauth
+	echo /data-integration/spoon.sh
+	/data-integration/spoon.sh
+}
+
 print_usage() {
 echo "
 
@@ -55,8 +62,7 @@ case "$1" in
         run_kitchen "$@"
         ;;
     spoon)
-	set_xauth
-	/data-integration/spoon.sh
+	run_spoon
         ;;
     *)
         exec "$@"
