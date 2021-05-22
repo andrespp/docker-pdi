@@ -22,15 +22,20 @@ RUN wget https://downloads.sourceforge.net/project/jtds/jtds/1.3.1/jtds-1.3.1-di
 	&& unzip Jaybird-3.0.4-JDK_1.8.zip -d lib \
 	&& rm -rf lib/docs/ Jaybird-3.0.4-JDK_1.8.zip
 
+# Adictional Setup
+COPY ./setup.sh /
+RUN chmod +x /setup.sh \
+	&& . /setup.sh
+
+# Install xauth
+RUN apt-get update && apt-get install -y xauth libwebkitgtk-1.0-0
+
 # First time run
 RUN pan.sh -file ./plugins/platform-utils-plugin/samples/showPlatformVersion.ktr \
 	&& kitchen.sh -file samples/transformations/files/test-job.kjb
 
-# Install xauth
-RUN apt-get update && apt-get install -y xauth
-
 #VOLUME /jobs
 
-COPY entrypoint.sh /
+COPY ./entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["help"]
